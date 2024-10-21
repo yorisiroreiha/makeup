@@ -1,3 +1,80 @@
-#maincontant{
-	background-color:#aaaaaa
+@charset "UTF-8";
+header h1{
+	text-align:center;
+	font-size:15px;
+}
+
+table{
+    border-collapse: collapse; /* セルのボーダーを重ねて表示 */
+    margin:0 auto ;
+    width: 80vw; /* テーブルの幅を100%に設定 */
+    border: 1px solid brown; /* ボーダーのスタイルを指定 */
+    border-radius: 5px; /* 角を丸くする */
+    background-color: gainsboro;
+}
+table th, table td{
+    border: 1px solid brown; /* セルにボーダーを追加 */
+		font-size:20px;
+		background-color:#B2DFDB;
+		width: 40vw;
+    text-align: left; /* テキストを左寄せに設定 */
+}
+table#enemy th,table#enemy td{
+    border: 1px solid brown; /* セルにボーダーを追加 */
+		font-size:20px;
+		background-color:#D2BFBB;
+		width: 40vw;
+    text-align: left; /* テキストを左寄せに設定 */
+}
+div#command{
+	margin:5px auto ;
+	padding:10px 0 ;
+	width:80vw;
+	border: 1px solid black;
+  display: flex;                  /* Flexboxを有効にする */
+  justify-content: space-between; /* ボタンを等間隔に配置 */
+	flex: 1; /* 残りのスペースを占める */
+	display: flex; /* 子要素をフレックスコンテナに */
+	flex-direction: row; /* 縦に並べる */
+	gap: 10px; /* 子要素の間に隙間を作る */
+}
+
+div#command button {
+    flex: 1; /* 各ボタンを等しい幅に */
+		font-size:16px;
+		background-color:#0D47A1;
+    margin: 0 10px;              /* ボタン間のマージン */
+}
+body {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh; /* ビューポートの高さを基準にする */
+	margin: 0; /* 余白をなくす */
+	background-color:#26C6DA;
+}
+header {
+	background-color: #EFEBE9;
+	margin:0 0 10px ;
+	padding: 10px;
+	height:30px;
+	text-align: center;
+}
+div#charactor{
+	flex: 1; /* 残りのスペースを占める */
+	display: flex; /* 子要素をフレックスコンテナに */
+	flex-direction: column; /* 縦に並べる */
+}
+div#log{
+	flex: 1; /* 残りのスペースを占める */
+	display: flex; /* 子要素をフレックスコンテナに */
+	flex-direction: column; /* 縦に並べる */
+	background-color:#FFFDE7;
+}
+footer {
+	background-color: #EFEBE9;
+	text-align: center;
+	padding: 10px;
+}
+span{
+	text-align:left;
 }

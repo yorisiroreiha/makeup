@@ -32,6 +32,7 @@ window.onload=()=>{
 		let message = [] ;
 		if(playerHp <= 0){
 			message.push("あなたは倒れていますリロードしてください");
+			message.push("倒した数"+countEncount+"体");
 			messageLog(message);
 			return ;}
 		if(countEncount == 0){
@@ -57,6 +58,7 @@ window.onload=()=>{
 		let message = [] ;
 		if(playerHp <= 0){
 			message.push("あなたは倒れていますリロードしてください");
+			message.push("倒した数"+countEncount+"体");
 			messageLog(message);
 			return ;}
 		if(countEncount == 0){
@@ -87,6 +89,7 @@ window.onload=()=>{
 		let message = [] ;
 		if(playerHp <= 0){
 			message.push("あなたは倒れていますリロードしてください");
+			message.push("倒した数"+countEncount+"体");
 			messageLog(message);
 			return ;}
 		if(countEncount == 0){
@@ -117,6 +120,7 @@ window.onload=()=>{
 		let message = [] ;
 		if(playerHp <= 0){
 			message.push("あなたは倒れていますリロードしてください");
+			message.push("倒した数"+countEncount+"体");
 			messageLog(message);
 			return ;}
 		if(enemyHp > 0){
@@ -137,7 +141,7 @@ window.onload=()=>{
 	const messageLog = (message)=>{
 		let sendMessage = "" ;
 		for( let i = 0 ; i < message.length ; i++ ){
-			sendMessage +="<p>"+message[i]+"</p>"
+			sendMessage +="<span>"+message[i]+"</span>"
 		}
 		log.innerHTML = sendMessage ;
 	}
