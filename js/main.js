@@ -22,7 +22,6 @@ window.onload=()=>{
 	let playerAt = Math.floor(Math.random() * 15)+2;
 	let playerDf = Math.floor(Math.random() * 5);
 
-	showStatus();
 	let enemyHp = 0;
 	let enemyMp = 0;
 	let enemyAt = 0;
@@ -30,103 +29,98 @@ window.onload=()=>{
 	let countEncount = 0 ;
 
 	attack.addEventListener("click",()=>{
+		let message = [] ;
 		if(playerHp <= 0){
-			message = "あなたは倒れていますリロードしてください";
+			message.push("あなたは倒れていますリロードしてください");
 			messageLog(message);
 			return ;}
 		if(countEncount == 0){
-			message = "エンカウントを押してエンカウントしてください";
+			message.push("エンカウントを押してエンカウントしてください");
 			messageLog(message);
 			return ;}
 		if(enemyHp <= 0){
-			message = "敵は倒れていますエンカウントを押してください";
+			message.push("敵は倒れていますエンカウントを押してください");
 			messageLog(message);
 			return ;}
 		let damagePoint = playerAt + Math.floor(Math.random() * 5);
 		enemyHp -= damagePoint - enemyDf ;
-		damage = enemyAttack();
-		message = "あなたは攻撃をした";
-		messageLog(message);
-		message = damagePoint+"点ダメージを与えた";
-		messageLog(message);
-		message = "敵の攻撃";
-		messageLog(message);
-		message = damage+"点ダメージを受けた";
+		let damage = enemyAttack();
+		message.push("あなたは攻撃をした");
+		message.push(damagePoint+"点ダメージを与えた");
+		message.push("敵の攻撃");
+		message.push(damage+"点ダメージを受けた");
 		messageLog(message);
 		showStatus();
 		return ;
 	});
 	deffeth.addEventListener("click",()=>{
+		let message = [] ;
 		if(playerHp <= 0){
-			message = "あなたは倒れていますリロードしてください";
+			message.push("あなたは倒れていますリロードしてください");
 			messageLog(message);
 			return ;}
 		if(countEncount == 0){
-			message = "エンカウントを押してエンカウントしてください";
+			message.push("エンカウントを押してエンカウントしてください");
 			messageLog(message);
 			return ;}
 		if(enemyHp <= 0){
-			message = "敵は倒れていますエンカウントを押してください";
+			message.push("敵は倒れていますエンカウントを押してください");
 			messageLog(message);
 			return ;}
 		if(playerMp <= 0){
-			message = "あなたはMPが足りない";
+			message.push("あなたはMPが足りない");
 			messageLog(message);
 			return ;}
 		playerMp -= 1 ;
 		let addPoint = Math.floor(Math.random() * 5);
 		playerDf += addPoint ;
-		damage = enemyAttack();
-		message = "あなたは防御を強化した";
-		messageLog(message);
-		message = addPoint+"点強化した";
-		messageLog(message);
-		message = "敵の攻撃";
-		messageLog(message);
-		message = damage+"点ダメージを受けた";
+		let damage = enemyAttack();
+		message.push("あなたは防御を強化した");
+		message.push(addPoint+"点強化した");
+		message.push("敵の攻撃");
+		message.push(damage+"点ダメージを受けた");
 		messageLog(message);
 		showStatus();
 		return;
 	});
 	heal.addEventListener("click",()=>{
+		let message = [] ;
 		if(playerHp <= 0){
-			message = "あなたは倒れていますリロードしてください";
+			message.push("あなたは倒れていますリロードしてください");
 			messageLog(message);
 			return ;}
 		if(countEncount == 0){
-			message = "エンカウントを押してエンカウントしてください";
+			message.push("エンカウントを押してエンカウントしてください");
 			messageLog(message);
 			return ;}
 		if(enemyHp <= 0){
-			message = "敵は倒れていますエンカウントを押してください";
+			message.push("敵は倒れていますエンカウントを押してください");
 			messageLog(message);
 			return ;}
 		if(playerMp <= 0){
-			message = "あなたはMPが足りない";
+			message.push("あなたはMPが足りない");
 			messageLog(message);
 			return ;}
 		playerMp -= 1 ;
 		let HealPoint = Math.floor(Math.random() * 20);
 		playerHp += HealPoint ;
-		damage = enemyAttack();
-		message = "あなたはヒールをした";
-		messageLog(message);
-		message = HealPoint+"点回復した";
-		messageLog(message);
-		message = "敵の攻撃";
-		messageLog(message);
-		message = damage+"点ダメージを受けた";
+		let damage = enemyAttack();
+		message.push("あなたはヒールをした");
+		message.push(HealPoint+"点回復した");
+		message.push("敵の攻撃");
+		message.push(damage+"点ダメージを受けた");
 		messageLog(message);
 		showStatus();
 		return ;
 	});
 	encount.addEventListener("click",()=>{
+		let message = [] ;
 		if(playerHp <= 0){
-			message = "あなたは倒れていますリロードしてください";
+			message.push("あなたは倒れていますリロードしてください");
 			messageLog(message);
 			return ;}
 		if(enemyHp > 0){
-			message = "敵前逃亡は不可となっています倒してください";
+			message.push("敵前逃亡は不可となっています倒してください");
 			messageLog(message);
 			return ;}
 		enemyHp = Math.floor(Math.random() * 30);
@@ -134,14 +128,18 @@ window.onload=()=>{
 		enemyAt = Math.floor(Math.random() * 10);
 		enemyDf = Math.floor(Math.random() * 5);
 		countEncount += 1 ;
-		message = "敵が現れた";
+		message.push("敵が現れた");
 		messageLog(message);
 		showStatus();
 		return ;
 	});
 
 	const messageLog = (message)=>{
-		log.textContent = message ;
+		let sendMessage = "" ;
+		for( let i = 0 ; i < message.length ; i++ ){
+			sendMessage +="<p>"+message[i]+"</p>"
+		}
+		log.innerHTML = sendMessage ;
 	}
 	const enemyAttack = ()=>{
 		let damage = enemyAt + Math.floor(Math.random() * 5) - playerDf;

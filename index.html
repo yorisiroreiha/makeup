@@ -1,35 +1,69 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<meta name="viewport" content="width=divice-width,initial-scale=1.0">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="css/main.css">
 		<script src="js/main.js"></script>
 		<title>タイトル予定</title>
 	</head>
 	<body>
-		<header></header>
+		<header>
+			<h1>タイトル予定</h1>
+		</header>
 		<div id="main">
 			<div id="charctor">
-				<div id="player">
-					<div id="player-hp"></div>
-					<div id="player-mp"></div>
-					<div id="player-at"></div>
-					<div id="player-df"></div>
-				</div>
-				<div id="enemy">
-					<div id="enemy-hp"></div>
-					<div id="enemy-mp"></div>
-					<div id="enemy-at"></div>
-					<div id="enemy-df"></div>
-				</div>
+				<table id="player">
+					<tr>
+						<td>Player</td>
+						<td>値</td>
+					</tr>
+					<tr>
+						<td>HP</td>
+						<td><p id="player-hp"></p></td>
+					</tr>
+					<tr>
+						<td>MP</td>
+						<td><p id="player-mp"></p></td>
+					</tr>
+					<tr>
+						<td>At</td>
+						<td><p id="player-at"></p></td>
+					</tr>
+					<tr>
+						<td>Df</td>
+						<td><p id="player-df"></p></td>
+					</tr>
+				</table>
+				<table id="enemy">
+					<tr>
+						<td>enemy</td>
+						<td>値</td>
+					</tr>
+					<tr>
+						<td>HP</td>
+						<td><p id="enemy-hp"></p></td>
+					</tr>
+					<tr>
+						<td>MP</td>
+						<td><p id="enemy-mp"></p></td>
+					</tr>
+					<tr>
+						<td>At</td>
+						<td><p id="enemy-at"></p></td>
+					</tr>
+					<tr>
+						<td>Df</td>
+						<td><p id="enemy-df"></p></td>
+					</tr>
+				</table>
 			</div>
 			<div id="command">
-				<div id="attack"></div>
-				<div id="deffeth"></div>
-				<div id="heal"></div>
-				<div id="encount"></div>
+				<button id="attack">attack</button>
+				<button id="deffeth">deffeth</button>
+				<button id="heal">heal</button>
+				<button id="encount">encount</button>
 			</div>
 			<div id="log"></div>
 		</div>
-		<footer></footer>
+		<footer><p>© 2024/10/21 maked</p></footer>
