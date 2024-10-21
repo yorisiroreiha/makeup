@@ -21,6 +21,7 @@ window.onload=()=>{
 	let playerMp = Math.floor(Math.random() * 20);
 	let playerAt = Math.floor(Math.random() * 15)+2;
 	let playerDf = Math.floor(Math.random() * 5);
+	let dieCount = 0 ;
 
 	let enemyHp = 0;
 	let enemyMp = 0;
@@ -30,19 +31,8 @@ window.onload=()=>{
 
 	attack.addEventListener("click",()=>{
 		let message = [] ;
-		if(playerHp <= 0){
-			message.push("あなたは倒れていますリロードしてください");
-			message.push("倒した数"+countEncount+"体");
-			messageLog(message);
-			return ;}
-		if(countEncount == 0){
-			message.push("エンカウントを押してエンカウントしてください");
-			messageLog(message);
-			return ;}
-		if(enemyHp <= 0){
-			message.push("敵は倒れていますエンカウントを押してください");
-			messageLog(message);
-			return ;}
+		let check = checkAttack();
+		if(!check){return;}
 		let damagePoint = playerAt + Math.floor(Math.random() * 5);
 		enemyHp -= damagePoint - enemyDf ;
 		let damage = enemyAttack();
@@ -52,27 +42,14 @@ window.onload=()=>{
 		message.push(damage+"点ダメージを受けた");
 		messageLog(message);
 		showStatus();
+		changeWord();
+		checkVital();
+		reloadTime();
 		return ;
 	});
 	deffeth.addEventListener("click",()=>{
 		let message = [] ;
-		if(playerHp <= 0){
-			message.push("あなたは倒れていますリロードしてください");
-			message.push("倒した数"+countEncount+"体");
-			messageLog(message);
-			return ;}
-		if(countEncount == 0){
-			message.push("エンカウントを押してエンカウントしてください");
-			messageLog(message);
-			return ;}
-		if(enemyHp <= 0){
-			message.push("敵は倒れていますエンカウントを押してください");
-			messageLog(message);
-			return ;}
-		if(playerMp <= 0){
-			message.push("あなたはMPが足りない");
-			messageLog(message);
-			return ;}
+		if(!checkMagic()){return;}
 		playerMp -= 1 ;
 		let addPoint = Math.floor(Math.random() * 5);
 		playerDf += addPoint ;
@@ -83,27 +60,14 @@ window.onload=()=>{
 		message.push(damage+"点ダメージを受けた");
 		messageLog(message);
 		showStatus();
+		changeWord();
+		checkVital();
+		reloadTime();
 		return;
 	});
 	heal.addEventListener("click",()=>{
 		let message = [] ;
-		if(playerHp <= 0){
-			message.push("あなたは倒れていますリロードしてください");
-			message.push("倒した数"+countEncount+"体");
-			messageLog(message);
-			return ;}
-		if(countEncount == 0){
-			message.push("エンカウントを押してエンカウントしてください");
-			messageLog(message);
-			return ;}
-		if(enemyHp <= 0){
-			message.push("敵は倒れていますエンカウントを押してください");
-			messageLog(message);
-			return ;}
-		if(playerMp <= 0){
-			message.push("あなたはMPが足りない");
-			messageLog(message);
-			return ;}
+		if(!checkMagic()){return;}
 		playerMp -= 1 ;
 		let HealPoint = Math.floor(Math.random() * 20);
 		playerHp += HealPoint ;
@@ -114,9 +78,12 @@ window.onload=()=>{
 		message.push(damage+"点ダメージを受けた");
 		messageLog(message);
 		showStatus();
+		changeWord();
+		checkVital();
+		reloadTime();
 		return ;
 	});
-	encount.addEventListener("click",()=>{
+	encount.addEventListener("mousedown",()=>{
 		let message = [] ;
 		if(playerHp <= 0){
 			message.push("あなたは倒れていますリロードしてください");
@@ -135,8 +102,13 @@ window.onload=()=>{
 		message.push("敵が現れた");
 		messageLog(message);
 		showStatus();
+		changeWord();
+		checkVital();
+		reloadTime();
 		return ;
 	});
+
+
 
 	const messageLog = (message)=>{
 		let sendMessage = "" ;
@@ -161,4 +133,71 @@ window.onload=()=>{
 		enemy_At.textContent = enemyAt ;
 		enemy_Df.textContent = enemyDf ;
 	}
+	const changeWord =()=>{
+		if(playerHp<=0){
+			encount.textContent = "リロード";
+			dieCount = 1 ;
+		}else if(enemyHp<=0){
+			encount.textContent = "Next" ;
+		}else{
+		encount.textContent = "エンカウント"
+		}
+	}
+	const checkAttack = ()=>{
+		let message = [] ;
+		if(playerHp <= 0){
+			message.push("あなたは倒れていますリロードしてください");
+			message.push("倒した数"+countEncount+"体");
+			messageLog(message);
+			dieCount+=1;
+			return false;}
+		if(countEncount == 0){
+			message.push("エンカウントを押してエンカウントしてください");
+			messageLog(message);
+			return false;}
+		if(enemyHp <= 0){
+			message.push("敵は倒れていますエンカウントを押してください");
+			messageLog(message);
+			return false;}
+		return true ;
+	}
+	const checkMagic = ()=>{
+		let message = [] ;
+		if(!checkAttack()){
+			return false;
+		}
+		if(playerMp <= 0){
+			message.push("あなたはMPが足りない");
+			messageLog(message);
+			return false;}
+		return true;
+	}
+	const reloadTime =()=>{
+		console.log(dieCount);
+		if(dieCount>0){
+			encount.addEventListener("mouseup",()=>{
+				location.reload();
+				dieCount=0;});
+			return ;
+		}
+	}
+	const checkVital =()=>{
+		let message = [] ;
+		if(countEncount == 0){
+			message.push("エンカウントを押してエンカウントしてください");
+			messageLog(message);
+			return;}
+		if(playerHp <= 0){
+			message.push("あなたは倒れていますリロードしてください");
+			message.push("倒した数"+countEncount+"体");
+			messageLog(message);
+			dieCount+=1;
+			return;}
+		if(enemyHp <= 0){
+			message.push("敵は倒れていますエンカウントを押してください");
+			messageLog(message);
+			return;}	
+	}
+	checkVital();
+	reloadTime();
 }
