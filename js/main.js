@@ -40,6 +40,7 @@ window.onload=()=>{
 	let countEncount = 0 ;
 
 	let temp = 0 ;
+	let root = 0 ;
 
 	/*fin* constとか変数置き場 ***/
 
@@ -57,12 +58,16 @@ window.onload=()=>{
 		message.push("プライヤーの攻撃");
 		message.push("敵に"+damage+"点のダメージを与えた");
 	}
+	
+	const damageMessage = (message,damage) =>{
+		message.push("敵の攻撃");
+		message.push("Playerは"+damage+"点のダメージを受けた");
+	}
 
 	const enemyAttack = (message)=>{
-		let damage = enemyAt + Math.floor(Math.random() * 5) - playerDf;
-		playerDf -= 1 ;
+		let damage = clacDamage(enemyAt,playerDf);
 		playerHp -= damage ;
-		return damage;
+		damageMessage(message,damage);
 	}
 
 	const showStatus = ()=>{
@@ -91,7 +96,7 @@ window.onload=()=>{
 	}
 
 	const checkSurvival =(message)=>{
-		if(playerHp <= 0 && dieCount == 2){
+		if(playerHp <= 0 && dieCount != 0){
 			message.push("あなたは倒れていますリロードしてください");
 			message.push("倒した数"+countEncount+"体");
 			dieCount = 1;
@@ -102,7 +107,11 @@ window.onload=()=>{
 	const checkEnemy = (message)=>{
 		if(enemyHp <= 0 && countEncount != 0 ){
 			message.push("敵は倒れていますエンカウントを押してください");
-			return false;}
+			return false;
+		}else if( countEncount == 0 ){
+			message.push("エンカウントを押して冒険に出かけましょう");
+			return false;
+		}
 		return true ;
 	}
 
@@ -117,6 +126,13 @@ window.onload=()=>{
 	const checkMagic = (message,useMp)=>{
 		if(playerMp <= useMp){
 			message.push("あなたはMPが足りない");
+			return false;}
+		return true;
+	}
+
+	const checkMonny = (message,useMonny)=>{
+		if(playerGold <= useMonny){
+			message.push("あなたはGoldが足りない");
 			return false;}
 		return true;
 	}
@@ -218,7 +234,6 @@ window.onload=()=>{
 		let result = true ;
 		let useMp = 0 ;
 		let useMonny = 0 ;
-		let root = 0 ;
 		switch(commandN){
 			case 1:
 				useMp = 0 ;
@@ -240,7 +255,7 @@ window.onload=()=>{
 				attackMessage(message,damage);
 				break;
 			case 2:
-				useMp = 0 ;
+				useMp = 3 ;
 				result = checkSurvival(message);
 				if(!result){
 					root = 1 ;
@@ -257,7 +272,7 @@ window.onload=()=>{
 				message.push("HPを"+temp+"点増やしたよ") ;
 				break;
 			case 3:
-				useMp = 0 ;
+				useMonny = Math.floor( playerHp/10 ) ;
 				result = checkSurvival(message);
 				if(!result){
 					root = 1 ;
@@ -266,9 +281,9 @@ window.onload=()=>{
 				if(!result){
 					root = 1 ;
 					break ;}
-				result = checkMagic(message,useMp);
+				result = checkMonny(message,useMonny);
 				if(!result){break ;}
-				playerMp -= useMp ;
+				playerGold -= useMonny ;
 				temp = 15 ;
 				playerHp += temp ;
 				message.push("HPを"+temp+"点増やしたよ") ;
@@ -286,8 +301,13 @@ window.onload=()=>{
 				return;
 		}
 		if(root == 0){
-		result = checkSurvival(message);
-		result = checkEnemy(message);
+			result = checkSurvival(message);
+			result = checkEnemy(message);
+			if(!result){
+				playerGold += diceRoll(1) ;
+			}else if(commandN != 4){
+				enemyAttack(message);
+			}
 		}
 		messageLog(message);
 		showStatus();
@@ -298,10 +318,9 @@ window.onload=()=>{
 		let result = true ;
 		let useMp = 0 ;
 		let useMonny = 0 ;
-		let root = 0 ;
 		switch(commandN){
 			case 1:
-				useMp = 0 ;
+				useMp = 5 ;
 				result = checkSurvival(message);
 				if(!result){
 					root = 1 ;
@@ -321,6 +340,7 @@ window.onload=()=>{
 				message.push("HPを"+damage+"点吸収した");
 				break;
 			case 2:
+				useMp = 0 ;
 				result = checkSurvival(message);
 				if(!result){
 					root = 1 ;
@@ -336,7 +356,7 @@ window.onload=()=>{
 				message.push("MPを"+temp+"点増やしたよ") ;
 				break;
 			case 3:
-				useMp = 0 ;
+				useMonny = Math.floor( playerMp / 10 ) ;
 				result = checkSurvival(message);
 				if(!result){
 					root = 1 ;
@@ -345,9 +365,9 @@ window.onload=()=>{
 				if(!result){
 					root = 1 ;
 					break ;}
-				//result = checkMagic(message,useMp);
+				result = checkMonny(message,useMonny);
 				if(!result){break ;}
-				//playerMp -= useMp ;
+				playerGold -= useMonny ;
 				temp = 2 ;
 				playerMp += temp ;
 				message.push("MPを"+temp+"点増やしたよ") ;
@@ -361,16 +381,26 @@ window.onload=()=>{
 				if(!result){
 					root = 1 ;
 					break ;}
+				if(dieCount == 0){
+					message.push("先にキャラを作ってください");
+					root = 1 ;
+					break;}
 				makeEnemy();
 				countEncount += 1 ;
+				root = 0 ;
 				message.push("生成したよ")
 				break;
 			default:
 				return;
 		}
-		if( root == 0 ){
+		if(root == 0){
 			result = checkSurvival(message);
 			result = checkEnemy(message);
+			if(!result){
+				playerGold += diceRoll(1) ;
+			}else if(commandN != 4){
+				enemyAttack(message);
+			}
 		}
 		messageLog(message);
 		showStatus();
@@ -381,10 +411,9 @@ window.onload=()=>{
 		let result = true ;
 		let useMp = 0 ;
 		let useMonny = 0 ;
-		let root = 0 ;
 		switch(commandN){
 			case 1:
-				useMp = 0 ;
+				useMp = 2 ;
 				result = checkSurvival(message);
 				if(!result){
 					root = 1 ;
@@ -404,7 +433,7 @@ window.onload=()=>{
 				message.push("敵の防御を"+damage+"点削った");
 				break;
 			case 2:
-				useMp = 0 ;
+				useMp = 3 ;
 				result = checkSurvival(message);
 				if(!result){
 					root = 1 ;
@@ -421,7 +450,7 @@ window.onload=()=>{
 				message.push("Atを"+temp+"点増やしたよ") ;
 				break;
 			case 3:
-				useMonny = 0 ;
+				useMonny = Math.floor( playerAt / 10 ) ;
 				result = checkSurvival(message);
 				if(!result){
 					root = 1 ;
@@ -430,9 +459,9 @@ window.onload=()=>{
 				if(!result){
 					root = 1 ;
 					break ;}
-				//result = checkMagic(message,useMp);
+				result = checkMonny(message,useMonny);
 				if(!result){break ;}
-				//playerMp -= useMp ;
+				playerGold -= useMonny ;
 				temp = 3 ;
 				playerAt += temp ;
 				message.push("Atを"+temp+"点増やしたよ") ;
@@ -442,17 +471,27 @@ window.onload=()=>{
 				if(!result){
 					root = 1 ;
 					break ;}
-				//所持金減らして次エンカウント
+				if(dieCount == 0){
+					message.push("先にキャラを作ってください");
+					root = 1 ;
+					break;}
+				playerGold = Math.floor( playerGold * 9 / 10 ) ;
 				makeEnemy();
 				countEncount += 1 ;
+				root = 0 ;
 				message.push("生成したよ")
 				break;
 			default:
 				return;
 		}
-		if( root == 0 ){
+		if(root == 0){
 			result = checkSurvival(message);
 			result = checkEnemy(message);
+			if(!result){
+				playerGold += diceRoll(1) ;
+			}else if(commandN != 4){
+				enemyAttack(message);
+			}
 		}
 		messageLog(message);
 		showStatus();
@@ -463,7 +502,6 @@ window.onload=()=>{
 		let result = true ;
 		let useMp = 0 ;
 		let useMonny = 0 ;
-		let root = 0 ;
 		switch(commandN){
 			case 1:
 				useMp = 0 ;
@@ -488,7 +526,7 @@ window.onload=()=>{
 				attackMessage(message,damage);
 				break;
 			case 2:
-				useMp = 0 ;
+				useMp = 3 ;
 				result = checkSurvival(message);
 				if(!result){
 					root = 1 ;
@@ -505,7 +543,7 @@ window.onload=()=>{
 				message.push("Dfを"+temp+"点増やしたよ") ;
 				break;
 			case 3:
-				useMonny = 0 ;
+				useMonny = Math.floor( playerDf / 10 ) ;
 				result = checkSurvival(message);
 				if(!result){
 					root = 1 ;
@@ -514,9 +552,9 @@ window.onload=()=>{
 				if(!result){
 					root = 1 ;
 					break ;}
-				//result = checkMagic(message,useMp);
+				result = checkMonny(message,useMonny);
 				if(!result){break ;}
-				//playerMp -= useMp ;
+				playerGold -= useMonny ;
 				temp = 1 ;
 				playerDf += temp ;
 				message.push("Dfを"+temp+"点増やしたよ") ;
@@ -527,9 +565,14 @@ window.onload=()=>{
 			default:
 				return;
 		}
-		if( root == 0 ){
+		if(root == 0){
 			result = checkSurvival(message);
 			result = checkEnemy(message);
+			if(!result){
+				playerGold += diceRoll(1) ;
+			}else if(commandN != 4){
+				enemyAttack(message);
+			}
 		}
 		messageLog(message);
 		showStatus();
