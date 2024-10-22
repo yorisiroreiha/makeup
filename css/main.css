@@ -7,7 +7,7 @@ header h1{
 table{
     border-collapse: collapse; /* セルのボーダーを重ねて表示 */
     margin:0 auto ;
-    width: 80vw; /* テーブルの幅を100%に設定 */
+    width: 40vw; /* テーブルの幅を100%に設定 */
     border: 1px solid brown; /* ボーダーのスタイルを指定 */
     border-radius: 5px; /* 角を丸くする */
     background-color: gainsboro;
@@ -16,14 +16,14 @@ table th, table td{
     border: 1px solid brown; /* セルにボーダーを追加 */
 		font-size:20px;
 		background-color:#B2DFDB;
-		width: 40vw;
+		width: 20vw;
     text-align: left; /* テキストを左寄せに設定 */
 }
 table#enemy th,table#enemy td{
     border: 1px solid brown; /* セルにボーダーを追加 */
 		font-size:20px;
 		background-color:#D2BFBB;
-		width: 40vw;
+		width: 20vw;
     text-align: left; /* テキストを左寄せに設定 */
 }
 div#command{
@@ -45,6 +45,27 @@ div#command button {
 		background-color:#0D47A1;
     margin: 0 10px;              /* ボタン間のマージン */
 }
+div#skill{
+	margin:5px auto ;
+	padding:10px 0 ;
+	width:80vw;
+	border: 1px solid black;
+  display: flex;                  /* Flexboxを有効にする */
+  justify-content: space-between; /* ボタンを等間隔に配置 */
+	flex: 1; /* 残りのスペースを占める */
+	display: flex; /* 子要素をフレックスコンテナに */
+	flex-direction: row; /* 縦に並べる */
+	gap: 10px; /* 子要素の間に隙間を作る */
+}
+div#skill button {
+    flex: 1; /* 各ボタンを等しい幅に */
+		font-size:16px;
+		background-color:#0D47A1;
+    margin: 0 10px;              /* ボタン間のマージン */
+}
+.hidemode {
+	opacity:0;
+}
 body {
 	display: flex;
 	flex-direction: column;
@@ -59,10 +80,10 @@ header {
 	height:30px;
 	text-align: center;
 }
-div#charactor{
-	flex: 1; /* 残りのスペースを占める */
+div#charctor{
 	display: flex; /* 子要素をフレックスコンテナに */
-	flex-direction: column; /* 縦に並べる */
+	flex-direction: row; /* 縦に並べる */
+	flex: 1; /* 残りのスペースを占める */
 }
 div#log{
 	flex: 1; /* 残りのスペースを占める */
@@ -71,6 +92,7 @@ div#log{
 	background-color:#FFFDE7;
 }
 footer {
+	margin:auto 0 0 ;
 	background-color: #EFEBE9;
 	text-align: center;
 	padding: 10px;
