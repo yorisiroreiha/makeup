@@ -1,9 +1,47 @@
 @charset "UTF-8";
+header{
+	display:flex;
+	background-color: #EFEBE9;
+	margin:0 0 10px ;
+	padding: 10px;
+	height: 5vh;
+	text-align: center;
+}
 header h1{
+	margin: 0 auto ;
 	text-align:center;
 	font-size:15px;
 }
+header h1 button#menu{
+	margin:auto 0 auto 0 ;
+}
 
+div#topside{
+	height: 65vh;
+	display: flex;
+	flex-direction: row;
+}
+div#main{
+	width: 70vw;
+	height: 65vh;
+	display: flex;
+	flex-direction: column;
+}
+div#imageBox{
+	width: 70vw;
+	height: 40vh;
+}
+div#explanation{
+	display:flex;
+	flex-direction: column;
+}
+div#makeClass{
+	display:flex;
+	flex-direction: column;
+}
+div#inputradio{
+	display:flex;
+}
 table{
     border-collapse: collapse; /* セルのボーダーを重ねて表示 */
     margin:0 auto ;
@@ -26,10 +64,14 @@ table#enemy th,table#enemy td{
 		width: 20vw;
     text-align: left; /* テキストを左寄せに設定 */
 }
+
+div#underside{
+	height: 20vh;
+}
 div#command{
 	margin:5px auto ;
 	padding:10px 0 ;
-	width:80vw;
+	width:90vw;
 	border: 1px solid black;
   display: flex;                  /* Flexboxを有効にする */
   justify-content: space-between; /* ボタンを等間隔に配置 */
@@ -48,7 +90,7 @@ div#command button {
 div#skill{
 	margin:5px auto ;
 	padding:10px 0 ;
-	width:80vw;
+	width:90vw;
 	border: 1px solid black;
   display: flex;                  /* Flexboxを有効にする */
   justify-content: space-between; /* ボタンを等間隔に配置 */
@@ -73,17 +115,26 @@ body {
 	margin: 0; /* 余白をなくす */
 	background-color:#26C6DA;
 }
-header {
-	background-color: #EFEBE9;
-	margin:0 0 10px ;
-	padding: 10px;
-	height:30px;
-	text-align: center;
-}
 div#charctor{
 	display: flex; /* 子要素をフレックスコンテナに */
 	flex-direction: row; /* 縦に並べる */
 	flex: 1; /* 残りのスペースを占める */
+}
+div#rightside{
+	width: 28vw;
+	display: flex;
+	height: 65vh;
+	flex-direction: column;
+	margin:auto 0 auto auto ;
+	background-color:#FFF;
+}
+div#story{
+	border: 1px solid black;
+	text-align: right;
+}
+div#player-gold{
+	border: 1px solid black;
+	text-align: center;
 }
 div#log{
 	flex: 1; /* 残りのスペースを占める */
@@ -93,6 +144,7 @@ div#log{
 }
 footer {
 	margin:auto 0 0 ;
+	height: 5vh;
 	background-color: #EFEBE9;
 	text-align: center;
 	padding: 10px;

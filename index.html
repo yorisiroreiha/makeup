@@ -9,60 +9,81 @@
 	</head>
 	<body>
 		<header>
-			<h1>タイトル予定</h1>
+			<h1>タイトル予定
+			</h1>
+			<button id="menu">▽</button>
 		</header>
-		<div id="main">
-			<div id="charctor">
-				<table id="player">
-					<tr>
-						<td>Player</td>
-						<td>値</td>
-					</tr>
-					<tr>
-						<td>HP</td>
-						<td id="player-hp"></td>
-					</tr>
-					<tr>
-						<td>MP</td>
-						<td id="player-mp"></td>
-					</tr>
-					<tr>
-						<td>At</td>
-						<td id="player-at"></td>
-					</tr>
-					<tr>
-						<td>Df</td>
-						<td id="player-df"></td>
-					</tr>
-				</table>
-				<table id="enemy">
-					<tr>
-						<td>enemy</td>
-						<td>値</td>
-					</tr>
-					<tr>
-						<td>HP</td>
-						<td id="enemy-hp"></td>
-					</tr>
-					<tr>
-						<td>MP</td>
-						<td id="enemy-mp"></td>
-					</tr>
-					<tr>
-						<td>At</td>
-						<td id="enemy-at"></td>
-					</tr>
-					<tr>
-						<td>Df</td>
-						<td id="enemy-df"></td>
-					</tr>
-				</table>
+		<div id="topside">
+			<div id="main">
+				<div id="imageBox">
+					<div id="makeClass">
+						<p>playerName</p>
+						<input type="text" id="player-name" placeholder="名前を入れてね">
+						<p>classNumber</p>
+						<input type="number" id="player-class" min="0" placeholder="数字を入れてね">
+						<button id="submit">決定</button>
+					</div>
+					<div id="explanation"></div>
+				</div>
+				<div id="charctor">
+					<table id="player">
+						<tr>
+							<td>Player</td>
+							<td>値</td>
+						</tr>
+						<tr>
+							<td>HP</td>
+							<td id="player-hp"></td>
+						</tr>
+						<tr>
+							<td>MP</td>
+							<td id="player-mp"></td>
+						</tr>
+						<tr>
+							<td>At</td>
+							<td id="player-at"></td>
+						</tr>
+						<tr>
+							<td>Df</td>
+							<td id="player-df"></td>
+						</tr>
+					</table>
+					<table id="enemy">
+						<tr>
+							<td id="enemy-name">enemy</td>
+							<td>値</td>
+						</tr>
+						<tr>
+							<td>HP</td>
+							<td id="enemy-hp"></td>
+						</tr>
+						<tr>
+							<td>MP</td>
+							<td id="enemy-mp"></td>
+						</tr>
+						<tr>
+							<td>At</td>
+							<td id="enemy-at"></td>
+						</tr>
+						<tr>
+							<td>Df</td>
+							<td id="enemy-df"></td>
+						</tr>
+					</table>
+				</div>
 			</div>
+			<div id="rightside">
+				<div id="story">11</div>
+				<div id="player-gold">10</div>
+				<div id="log"></div>
+			</div>
+		</div>
+		<div id="underside">
 			<div id="command">
 				<button id="attack">攻撃</button>
-				<button id="deffeth">防御</button>
-				<button id="heal">回復</button>
-				<button id="encount">エンカウント</button>
+				<button id="deffeth">魔法</button>
+				<button id="heal">購入</button>
+				<button id="encount">エンカウント系</button>
 			</div>
 			<div id="skill" class="hidemode">
 				<button id="skillA"></button>
@@ -70,6 +91,5 @@
 				<button id="skillC"></button>
 				<button id="skillD"></button>
 			</div>
-			<div id="log"></div>
 		</div>
 		<footer><p>© 2024/10/21 maked</p></footer>

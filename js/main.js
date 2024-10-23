@@ -16,14 +16,16 @@ window.onload=()=>{
 	const player_At = document.getElementById("player-at");
 	const player_Df = document.getElementById("player-df");
 	const player_Mp = document.getElementById("player-mp");
-	//const player_Gold = document.getElementById("player-gold");
+	const player_Gold = document.getElementById("player-gold");
 	
+	const enemy_Name = document.getElementById("enemy-name");
 	const enemy_Hp = document.getElementById("enemy-hp");
 	const enemy_At = document.getElementById("enemy-at");
 	const enemy_Df = document.getElementById("enemy-df");
 	const enemy_Mp = document.getElementById("enemy-mp");
 
 	const log = document.getElementById("log");
+	const story = document.getElementById("story");
 
 	let playerHp = 0 ;
 	let playerMp = 0 ;
@@ -33,10 +35,13 @@ window.onload=()=>{
 	let dieCount = 0 ;
 	let commandN = 0 ;
 
+	let enemy = [];
+	let enemyName = "Enemy";
 	let enemyHp = 0;
 	let enemyMp = 0;
 	let enemyAt = 0;
 	let enemyDf = 0;
+	let enemyGold = 0;
 	let countEncount = 0 ;
 
 	let temp = 0 ;
@@ -68,13 +73,17 @@ window.onload=()=>{
 		let damage = clacDamage(enemyAt,playerDf);
 		playerHp -= damage ;
 		damageMessage(message,damage);
+		enemy[countEncount-1].attack(message,playerDf);
 	}
 
 	const showStatus = ()=>{
+		story.textContent = countEncount+"階層" ;
 		player_Hp.textContent = playerHp ;
 		player_Mp.textContent = playerMp ;
 		player_At.textContent = playerAt ;
 		player_Df.textContent = playerDf ;
+		player_Gold.textContent = "所持金:"+playerGold ;
+		enemy_Name.textContent = enemyName ;
 		enemy_Hp.textContent = enemyHp ;
 		enemy_Mp.textContent = enemyMp ;
 		enemy_At.textContent = enemyAt ;
@@ -176,13 +185,174 @@ window.onload=()=>{
 	}	
 
 	const makeEnemy = () =>{
-		enemyHp = diceRoll(3);
-		enemyMp = diceRoll(2);
-		enemyAt = diceRoll(2);
-		enemyDf = diceRoll(1);
+		let tempEnemy = null ;
+		let enemyNumber = diceRoll(1);
+		switch(enemyNumber){
+				case 1:
+					tempEnemy = new slime();
+					break;
+				case 2:
+					tempEnemy = new goblin();
+					break;
+				case 3:
+					tempEnemy = new gorem();
+					break;
+				case 4:
+					tempEnemy = new flysord();
+					break;
+				case 5:
+					tempEnemy = new dragon();
+					break;
+				default:
+					tempEnemy = new boss();
+					break;
+		}
+		enemy.push(tempEnemy);
+		console.log(enemy[countEncount].name);
+		enemyName = enemy[countEncount].name;
+		enemyHp = enemy[countEncount].hp ;
+		enemyMp = enemy[countEncount].mp ;
+		enemyAt = enemy[countEncount].at ;
+		enemyDf = enemy[countEncount].df ;
+		enemyGold = enemy[countEncount].gold ;
 	}
 
 	/*fin* defとかメソッド置き場 ***/
+	/*start* オブジェクト置き場 ***/
+
+	class slime{
+		constructor(){
+			this.name = "slime";
+			this.hp = diceRoll(1)+ 2*countEncount;
+			this.mp = diceRoll(1)+countEncount;
+			this.at = diceRoll(1)+countEncount;
+			this.df = diceRoll(1)+countEncount;
+			this.gold = Math.floor( (this.hp+this.mp+this.at+this.df) /5)
+		}
+		attack(message,playerDf){
+			let action = diceRoll(1);
+			switch(action){
+				case 1:break;
+				case 2:break;
+				case 3:break;
+				case 4:break;
+				case 5:break;
+				default:break;
+			}
+		}
+	}
+
+	class goblin{
+		constructor(){
+			this.name = "goblin";
+			this.hp = diceRoll(2)+countEncount;
+			this.mp = diceRoll(1)+countEncount;
+			this.at = diceRoll(2)+countEncount;
+			this.df = diceRoll(1)+countEncount;
+			this.gold = Math.floor( (this.hp+this.mp+this.at+this.df) /5)
+		}
+		attack(message,playerDf){
+			let action = diceRoll(1);
+			switch(action){
+				case 1:break;
+				case 2:break;
+				case 3:break;
+				case 4:break;
+				case 5:break;
+				default:break;
+			}
+		}
+	}
+
+	class gorem{
+		constructor(){
+			this.name = "gorem";
+			this.hp = diceRoll(1)+countEncount;
+			this.mp = diceRoll(1)+countEncount;
+			this.at = diceRoll(1)+countEncount;
+			this.df = diceRoll(2)+2*countEncount;
+			this.gold = Math.floor( (this.hp+this.mp+this.at+this.df) /5)
+		}
+		attack(message,playerDf){
+			let action = diceRoll(1);
+			switch(action){
+				case 1:break;
+				case 2:break;
+				case 3:break;
+				case 4:break;
+				case 5:break;
+				default:break;
+			}
+		}
+	}
+
+	class flysord{
+		constructor(){
+			this.name = "flysord";
+			this.hp = diceRoll(2)+countEncount;
+			this.mp = diceRoll(1)+countEncount;
+			this.at = diceRoll(2)+countEncount;
+			this.df = diceRoll(1)+2*countEncount;
+			this.gold = Math.floor( (this.hp+this.mp+this.at+this.df) /5)
+		}
+		attack(message,playerDf){
+			let action = diceRoll(1);
+			switch(action){
+				case 1:break;
+				case 2:break;
+				case 3:break;
+				case 4:break;
+				case 5:break;
+				default:break;
+			}
+		}
+	}
+
+	class dragon{
+		constructor(){
+			this.name = "dragon";
+			this.hp = diceRoll(2)+countEncount;
+			this.mp = diceRoll(1)+countEncount;
+			this.at = diceRoll(2)+countEncount;
+			this.df = diceRoll(2)+countEncount;
+			this.gold = Math.floor( (this.hp+this.mp+this.at+this.df) /5)
+		}
+		attack(message,playerDf){
+			let action = diceRoll(1);
+			switch(action){
+				case 1:break;
+				case 2:break;
+				case 3:break;
+				case 4:break;
+				case 5:break;
+				default:break;
+			}
+		}
+	}
+
+	class boss{
+		constructor(){
+			this.name = "boss";
+			this.hp = diceRoll(2)+countEncount;
+			this.mp = diceRoll(2)+countEncount;
+			this.at = diceRoll(2)+countEncount;
+			this.df = diceRoll(1)+ 2*countEncount;
+			this.gold = Math.floor( (this.hp+this.mp+this.at+this.df) /5)
+		}
+		attack(message,playerDf){
+			let action = diceRoll(1);
+			switch(action){
+				case 1:break;
+				case 2:break;
+				case 3:break;
+				case 4:break;
+				case 5:break;
+				default:break;
+			}
+		}
+	}
+
+	/*fin* オブジェクト置き場 ***/
 	/*start*  addEventListener ***/
 
 	attack.addEventListener("click",()=>{
@@ -234,6 +404,7 @@ window.onload=()=>{
 		let result = true ;
 		let useMp = 0 ;
 		let useMonny = 0 ;
+		root = 0;
 		switch(commandN){
 			case 1:
 				useMp = 0 ;
@@ -287,6 +458,7 @@ window.onload=()=>{
 				temp = 15 ;
 				playerHp += temp ;
 				message.push("HPを"+temp+"点増やしたよ") ;
+				root = 1 ;
 				break;
 			case 4:
 				result = checkReload(message);
@@ -295,6 +467,7 @@ window.onload=()=>{
 					message.push("プレイヤーを生成したよ");
 					message.push("エンカウントを押して冒険へ行こう");
 					dieCount = 2 ;
+					root = 1 ;
 				}
 				break;
 			default:
@@ -304,8 +477,8 @@ window.onload=()=>{
 			result = checkSurvival(message);
 			result = checkEnemy(message);
 			if(!result){
-				playerGold += diceRoll(1) ;
-			}else if(commandN != 4){
+				playerGold += enemyGold ;
+			}else{
 				enemyAttack(message);
 			}
 		}
@@ -318,6 +491,7 @@ window.onload=()=>{
 		let result = true ;
 		let useMp = 0 ;
 		let useMonny = 0 ;
+		root = 0 ;
 		switch(commandN){
 			case 1:
 				useMp = 5 ;
@@ -371,6 +545,7 @@ window.onload=()=>{
 				temp = 2 ;
 				playerMp += temp ;
 				message.push("MPを"+temp+"点増やしたよ") ;
+				root = 1;
 				break;
 			case 4:
 				result = checkSurvival(message);
@@ -387,7 +562,7 @@ window.onload=()=>{
 					break;}
 				makeEnemy();
 				countEncount += 1 ;
-				root = 0 ;
+				root = 1 ;
 				message.push("生成したよ")
 				break;
 			default:
@@ -397,8 +572,8 @@ window.onload=()=>{
 			result = checkSurvival(message);
 			result = checkEnemy(message);
 			if(!result){
-				playerGold += diceRoll(1) ;
-			}else if(commandN != 4){
+				playerGold += enemyGold ;
+			}else{
 				enemyAttack(message);
 			}
 		}
@@ -411,6 +586,7 @@ window.onload=()=>{
 		let result = true ;
 		let useMp = 0 ;
 		let useMonny = 0 ;
+		root = 0 ;
 		switch(commandN){
 			case 1:
 				useMp = 2 ;
@@ -465,6 +641,7 @@ window.onload=()=>{
 				temp = 3 ;
 				playerAt += temp ;
 				message.push("Atを"+temp+"点増やしたよ") ;
+				root = 1;
 				break;
 			case 4:
 				result = checkSurvival(message);
@@ -478,8 +655,8 @@ window.onload=()=>{
 				playerGold = Math.floor( playerGold * 9 / 10 ) ;
 				makeEnemy();
 				countEncount += 1 ;
-				root = 0 ;
-				message.push("生成したよ")
+				root = 1 ;
+				message.push("逃走したよ")
 				break;
 			default:
 				return;
@@ -488,8 +665,8 @@ window.onload=()=>{
 			result = checkSurvival(message);
 			result = checkEnemy(message);
 			if(!result){
-				playerGold += diceRoll(1) ;
-			}else if(commandN != 4){
+				playerGold += enemyGold ;
+			}else{
 				enemyAttack(message);
 			}
 		}
@@ -502,6 +679,7 @@ window.onload=()=>{
 		let result = true ;
 		let useMp = 0 ;
 		let useMonny = 0 ;
+		root = 0 ;
 		switch(commandN){
 			case 1:
 				useMp = 0 ;
@@ -558,6 +736,7 @@ window.onload=()=>{
 				temp = 1 ;
 				playerDf += temp ;
 				message.push("Dfを"+temp+"点増やしたよ") ;
+				root = 1;
 				break;
 			case 4:
 				location.reload();
@@ -569,8 +748,8 @@ window.onload=()=>{
 			result = checkSurvival(message);
 			result = checkEnemy(message);
 			if(!result){
-				playerGold += diceRoll(1) ;
-			}else if(commandN != 4){
+				playerGold += enemyGold ;
+			}else{
 				enemyAttack(message);
 			}
 		}
