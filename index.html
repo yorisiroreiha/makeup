@@ -18,17 +18,20 @@
 				<div id="imageBox">
 					<div id="makeClass">
 						<p>playerName</p>
-						<input type="text" id="player-name" placeholder="名前を入れてね">
+						<input type="text" maxlength="10" id="player-name" placeholder="名前を入れてね(10文字まで)">
 						<p>classNumber</p>
 						<input type="number" id="player-class" min="0" placeholder="数字を入れてね">
 						<button id="submit">決定</button>
 					</div>
-					<div id="explanation"></div>
+					<div id="explanation" style="display: none;">
+						<h3>ステータスについて</h3>
+						<p>HP:なくなると死ぬよ</p>
+					</div>
 				</div>
 				<div id="charctor">
 					<table id="player">
 						<tr>
-							<td>Player</td>
+							<td id="name">Player</td>
 							<td>値</td>
 						</tr>
 						<tr>
@@ -73,8 +76,8 @@
 				</div>
 			</div>
 			<div id="rightside">
-				<div id="story">11</div>
-				<div id="player-gold">10</div>
+				<div id="story">？階層</div>
+				<div id="player-gold">所持金:0</div>
 				<div id="log"></div>
 			</div>
 		</div>
@@ -93,3 +96,5 @@
 			</div>
 		</div>
 		<footer><p>© 2024/10/21 maked</p></footer>
+	</body>
+</html>

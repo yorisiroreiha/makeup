@@ -18,7 +18,9 @@ header h1 button#menu{
 
 div#topside{
 	height: 65vh;
+	padding: 5px;
 	display: flex;
+	gap: 5px;
 	flex-direction: row;
 }
 div#main{

@@ -12,6 +12,7 @@ window.onload=()=>{
 	const skillC = document.getElementById("skillC");
 	const skillD = document.getElementById("skillD");
 
+	const player = document.getElementById("name");
 	const player_Hp = document.getElementById("player-hp");
 	const player_At = document.getElementById("player-at");
 	const player_Df = document.getElementById("player-df");
@@ -27,6 +28,14 @@ window.onload=()=>{
 	const log = document.getElementById("log");
 	const story = document.getElementById("story");
 
+	const submit = document.getElementById("submit");
+	const player_Name = document.getElementById("player-name");
+	const player_Class = document.getElementById("player-class");
+	const makeClass = document.getElementById("makeClass");
+	const menu = document.getElementById("menu");
+	const explanation = document.getElementById("explanation");
+
+	let playerClass = 0 ;
 	let playerHp = 0 ;
 	let playerMp = 0 ;
 	let playerAt = 0 ;
@@ -355,6 +364,21 @@ window.onload=()=>{
 	/*fin* オブジェクト置き場 ***/
 	/*start*  addEventListener ***/
 
+	menu.addEventListener("click",()=>{
+		if (explanation.style.display === 'none') {
+			explanation.style.display = 'block'; // 表示
+    } else {
+			explanation.style.display = 'none'; // 非表示
+    }
+	});
+
+	submit.addEventListener("click",()=>{
+		makeClass.parentNode.removeChild(makeClass);
+		player.textContent = player_Name.value ;
+		playerClass = player_Class.value ;
+
+	});
+
 	attack.addEventListener("click",()=>{
 		skill.classList.add("hidemode");
 		commandN = 1 ;
@@ -467,8 +491,8 @@ window.onload=()=>{
 					message.push("プレイヤーを生成したよ");
 					message.push("エンカウントを押して冒険へ行こう");
 					dieCount = 2 ;
-					root = 1 ;
 				}
+					root = 1 ;
 				break;
 			default:
 				return;
